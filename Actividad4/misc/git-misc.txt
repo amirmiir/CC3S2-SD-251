@@ -1,0 +1,16 @@
+git show 223c121
+#para ver la descripcion de un commit
+#(223c121) es un commit
+
+git cat-file -p 223c121
+
+el objeto commit es el encargada de tomar una snapshot
+cada commit tiene una referencia al estado del direcotorio en ese momento
+...tiene metadatos dela utor, referencias a commit anteriores (padres) que forman la base del historial del proyecto.
+El objeto tree
+
+blob no contiene metadatos ni referencias a otros objetos, solo tiene el contenido
+
+a través de esto git evita la duplicacion y puede manejar los datos de manera muy compacta
+
+tag-asignar etqieutas a commit especificos
