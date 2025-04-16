@@ -887,7 +887,7 @@ To github.com:amirmiir/testing-for-activities.git
 [amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ 
 ```
 
-![Description of image](../misc/Ej5_1.png)
+![Description of image](/misc/Ej5_1.png)
 
 
 ## Ejercicio 6
