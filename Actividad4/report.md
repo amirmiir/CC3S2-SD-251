@@ -140,7 +140,7 @@ fad1331 Corrected, initial commit with README.md
 *        fad1331 69 minutes ago ("amirmiir") Corrected, initial commit with README.md
 *        1ddb19c 71 minutes ago ("amirmiir") Initial commit with README
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
- ```
+```
 
  Creamos una nueva rama y revisamos las ramas existentes:
 
@@ -154,7 +154,7 @@ fad1331 Corrected, initial commit with README.md
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ git checkout feature/new-feature 
 Switched to branch 'feature/new-feature'
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
-```
+ ```
 
 Realizamos las instrucciones, para crear una nueva rama basada en la rama develop.
 
@@ -587,7 +587,7 @@ fad1331 (hotfix/bugfix) Corrected, initial commit with README.md
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
  ```
  Realizamos el rebase:
- 
+
  ```
  [amirmiir@zenbook14-aacg-EndOS ejercicios]$ git rebase -i HEAD~4
 You asked to amend the most recent commit, but doing so would make
@@ -620,9 +620,9 @@ fad1331 (hotfix/bugfix) Corrected, initial commit with README.md
 1ddb19c Initial commit with README
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
  ```
- 
+
  Ejecutamos el grafo, y verificamos que la forma ya no es lineal:
- 
+
 ```
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ git log --graph --pretty=format:'%x09 %h %ar ("%an") %s'
 *        1af2369 2 hours ago ("amirmiir") Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
@@ -639,7 +639,7 @@ fad1331 (hotfix/bugfix) Corrected, initial commit with README.md
 *        1ddb19c 31 hours ago ("amirmiir") Initial commit with README
 [amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
 ```
- 
+
 ## Ejercicio 3: Creación y gestión de ramas desde commits específicos
 Procedemos a seguir las instrucciones y elegimos como commit de origen para nuestra rama: '07ad9bc'
 ```
@@ -887,10 +887,301 @@ To github.com:amirmiir/testing-for-activities.git
 [amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ 
 ```
 
-![imagen de pull request en github](Actividad4/misc/ej5_1.png)
+![imagen](misc/ej5_1.png)
+
+![imagen de comentario de un pull request](misc/ej5_2.png)
+
+![aceptacion de pull request - create a merge commit](misc/ej5_3.png)
+
+![Confirmación de merge](misc/ej5_4.png)
+
+Culminación del ejercicio al actualizar el repositorio local y la eliminación de la rama en desuso.
+
+```
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ git branch
+* feature/team-feature
+  main
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ git checkout main
+Switched to branch 'main'
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ git pull
+Enter passphrase for key '/home/amirmiir/.ssh/id_ed25519': 
+Updating a5a30eb..926dec9
+Fast-forward
+ collaboration.py | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 collaboration.py
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ 
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ 
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ git branch -d feature/team-feature 
+Deleted branch feature/team-feature (was 2562e25).
+[amirmiir@zenbook14-aacg-EndOS testing-for-activities]$ 
+
+```
+
 
 
 ## Ejercicio 6
+
+Inicio de la ramificación para hacer el cherry-pick
+
+```
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git branch
+  develop
+  feature/login
+  hotfix/bugfix
+* main
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ echo "print('Cherry pick this\!')" >> main.py
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git add main.py
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git commit -m "feat: add cherry-pick example"
+[main d503c68] feat: add cherry-pick example
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git branch feature/cherry-pick
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git checkout feature/cherry-pick 
+Switched to branch 'feature/cherry-pick'
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git log --oneline
+d503c68 (HEAD -> feature/cherry-pick, main) feat: add cherry-pick example
+9d20e99 fix: fix bug in rollback feature
+29e0f74 fix: fix bug in rollback feature
+aa83101 Revert "feat: modified main.py for future revert"
+c7a4024 feat: modified main.py for future revert
+112083f Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+1af2369 Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+3d668d6 Revert "feat: Resolve merge conflict between main and feature/advanced-feature"
+07ad9bc feat: Resolve merge conflict between main and feature/advanced-feature
+5f4c951 feat: Update main.py message in main branch
+ff2e807 feat: added greet function in advanced feature
+4139612 (feature/login) feat: changed main.py
+8238124 (develop) Add main.py
+34f7128 Set up the repository base documentation
+fad1331 (hotfix/bugfix) Corrected, initial commit with README.md
+1ddb19c Initial commit with README
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$
+```
+
+Procedemos a resolver el conflicto de merge utilizando la interfaz de vscode.
+
+![](misc/ej5_5.png)
+
+```
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git status
+On branch feature/cherry-pick
+Last commands done (2 commands done):
+   pick 1af2369 Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+   squash 112083f Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+Next commands to do (2 remaining commands):
+   squash c7a4024 feat: modified main.py for future revert
+   squash aa83101 Revert "feat: modified main.py for future revert"
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'main' on '3d668d6'.
+  (all conflicts fixed: run "git rebase --continue")
+
+Changes to be committed:
+        modified:   main.py
+
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git commit -m "feat: modified main to a previous state in 07ad9bc"
+[feature/cherry-pick 86bd557] feat: modified main to a previous state in 07ad9bc
+ Date: Tue Apr 15 15:10:59 2025 -0500
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git status
+On branch feature/cherry-pick
+Last commands done (2 commands done):
+   pick 1af2369 Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+   squash 112083f Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+Next commands to do (2 remaining commands):
+   squash c7a4024 feat: modified main.py for future revert
+   squash aa83101 Revert "feat: modified main.py for future revert"
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on '3d668d6'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+nothing to commit, working tree clean
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+```
+
+Procedemos a realizar los cambios a _main.py_
+
+```
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ echo "This change is stashed" > main.py
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git status
+On branch feature/cherry-pick
+Last commands done (2 commands done):
+   pick 1af2369 Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+   squash 112083f Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+Next commands to do (2 remaining commands):
+   squash c7a4024 feat: modified main.py for future revert
+   squash aa83101 Revert "feat: modified main.py for future revert"
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on '3d668d6'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   main.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git stash
+Saved working directory and index state WIP on feature/cherry-pick: 86bd557 feat: modified main to a previous state in 07ad9bc
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+
+```
+
+
+
+Recuperamos lo previo con _git stash pop_
+
+```
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git stash pop
+On branch feature/cherry-pick
+Last commands done (2 commands done):
+   pick 1af2369 Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+   squash 112083f Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+Next commands to do (2 remaining commands):
+   squash c7a4024 feat: modified main.py for future revert
+   squash aa83101 Revert "feat: modified main.py for future revert"
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on '3d668d6'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   main.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (13a0677026d2386792f34e9104582d79af8766dd)
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ 
+
+```
+
+log:
+
+```
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$ git log
+commit 86bd5574f493c9ebb991c1191871f8311df6d29e (HEAD -> feature/cherry-pick)
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:10:59 2025 -0500
+
+    feat: modified main to a previous state in 07ad9bc
+
+commit d503c683f4c8bddfa4b397427a6f6741af12f4a0 (main)
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 20:35:55 2025 -0500
+
+    feat: add cherry-pick example
+
+commit 9d20e99e5a2635659dcb43b245c5a23b88daaeb4
+Merge: aa83101 29e0f74
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 17:38:08 2025 -0500
+
+    fix: fix bug in rollback feature
+
+commit 29e0f74230608efbf4d9b8a61057ba72bed3b8ce
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 17:30:07 2025 -0500
+
+    fix: fix bug in rollback feature
+
+commit aa831013034dda5f2d7a5c1273a727ebfc688bbb
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 16:50:47 2025 -0500
+
+    Revert "feat: modified main.py for future revert"
+    
+    This reverts commit c7a4024a06ecc9e00d1391b3adda115930db7186.
+
+commit c7a4024a06ecc9e00d1391b3adda115930db7186
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 16:50:33 2025 -0500
+
+    feat: modified main.py for future revert
+
+commit 112083f0ee6f120d45dd996e92537ed95d865376
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:53:53 2025 -0500
+
+    Revert "Reapply "feat: Resolve merge conflict between main and feature/advanced-feature""
+    
+    This reverts commit 1af236955b8e026379408061bc3cd9e5ca36607c.
+
+commit 1af236955b8e026379408061bc3cd9e5ca36607c
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:53:08 2025 -0500
+
+    Reapply "feat: Resolve merge conflict between main and feature/advanced-feature"
+    
+    This reverts commit 3d668d6d974bcd59288324693524888fa851157c.
+
+commit 3d668d6d974bcd59288324693524888fa851157c
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:42:43 2025 -0500
+
+    Revert "feat: Resolve merge conflict between main and feature/advanced-feature"
+    
+    This reverts commit 07ad9bc09c5843efd5288db90814dbda2aa56656, reversing
+    changes made to 5f4c9517d6572a78f41b3f4ca790fd4cb95a8833.
+
+commit 07ad9bc09c5843efd5288db90814dbda2aa56656
+Merge: 5f4c951 ff2e807
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:10:59 2025 -0500
+
+    feat: Resolve merge conflict between main and feature/advanced-feature
+
+commit 5f4c9517d6572a78f41b3f4ca790fd4cb95a8833
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:06:55 2025 -0500
+
+    feat: Update main.py message in main branch
+
+commit ff2e807904eb2f19c996ff370f4a536f214ac0b8
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 15:03:35 2025 -0500
+
+    feat: added greet function in advanced feature
+
+commit 413961241d73735b31247ee831ffa53a0e9a34f9 (feature/login)
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Tue Apr 15 12:09:26 2025 -0500
+
+    feat: changed main.py
+
+commit 823812442dea39844525e2fcf43a4581c2c2c58c (develop)
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Mon Apr 14 11:42:52 2025 -0500
+
+    Add main.py
+
+commit 34f7128492c07376309470bb53749d326a5289f4
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Mon Apr 14 11:07:37 2025 -0500
+
+    Set up the repository base documentation
+
+commit fad133172f091862e68e85a09b1ace3878392a4e (hotfix/bugfix)
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Mon Apr 14 10:34:38 2025 -0500
+
+    Corrected, initial commit with README.md
+
+commit 1ddb19ca453bef663ca8610cb50de662e435e39d
+Author: amirmiir <00aamircg@gmail.com>
+Date:   Mon Apr 14 10:32:10 2025 -0500
+
+    Initial commit with README
+
+[amirmiir@zenbook14-aacg-EndOS ejercicios]$
+```
 
 
 
