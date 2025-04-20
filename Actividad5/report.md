@@ -142,3 +142,82 @@ Squash commit -- not updating HEAD
 [amirmiir@zenbook14-aacg-EndOS prueba-squash-merge]$ 
 ```
 
+### Prueba Merge Conflict
+
+```bash
+[amirmiir@zenbook14-aacg-EndOS Actividad5]$ cd prueba-merge-conflict
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ ls
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/ds-251/Actividad5/prueba-merge-conflict/.git/
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ echo "<html><body><h1> Proyecto Inicial </h1></body></html>" > index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git add index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git commit -m "commit inicial del index-html en main"
+[main (root-commit) 8604ca6] commit inicial del index-html en main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index.html
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git checkout -b feature-update
+Switched to a new branch 'feature-update'
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ echo "<p>...</p>" >> index.html
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ cat index.html
+<html><body><h1> Proyecto Inicial </h1></body></html>
+<p>...</p>
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git add index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git commit -m "Actualiza..."
+[feature-update 6c1bc25] Actualiza...
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git checkout main
+Switched to branch 'main'
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ cat index.html
+<html><body><h1> Proyecto Inicial </h1></body></html>
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ echo "<footer>Contacta aquí example@example.com </footer>" >> index.html
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git add index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git commit -m "...index.html"
+[main b058a75] ...index.html
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ cat index.html
+<html><body><h1> Proyecto Inicial </h1></body></html>
+<footer>Contacta aquí example@example.com </footer>
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+```
+
+Procedemos a resolver el conflicto con nano:
+
+```bash
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git merge --no-ff feature-update 
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ nano index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ cat index.html
+<html><body><h1> Proyecto Inicial </h1></body></html>
+
+<footer>Contacta aquí example@example.com </footer>
+
+<p>...</p>
+
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git add index.html 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git commit
+[main 377dca1] Merge branch 'feature-update'
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ git log --graph --oneline
+*   377dca1 (HEAD -> main) Merge branch 'feature-update'
+|\  
+| * 6c1bc25 (feature-update) Actualiza...
+* | b058a75 ...index.html
+|/  
+* 8604ca6 commit inicial del index-html en main
+[amirmiir@zenbook14-aacg-EndOS prueba-merge-conflict]$ 
+
+```
+
+
+
+### Prueba Compare Merge
+
+```bash
+```
+
