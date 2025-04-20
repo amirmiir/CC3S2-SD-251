@@ -219,5 +219,129 @@ Automatic merge failed; fix conflicts and then commit the result.
 ### Prueba Compare Merge
 
 ```bash
+[amirmiir@zenbook14-aacg-EndOS Actividad5]$ cd prueba-compare-merge/
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/ds-251/Actividad5/prueba-compare-merge/.git/
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ echo "version 1.0" > version.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "..."
+[main (root-commit) 58a49c9] ...
+ 1 file changed, 1 insertion(+)
+ create mode 100644 version.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout -b feature-1
+Switched to a new branch 'feature-1'
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ echo "Caracteristica 1 agregada" >> version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "Agregar caracteristica 1"
+[feature-1 264a4f9] Agregar caracteristica 1
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout main
+Switched to branch 'main'
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout -b feature-2
+Switched to a new branch 'feature-2'
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ echo "Caracteristica 2 agregada" >> version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "Se agrega caracteristica 2"
+[feature-2 0caa2c3] Se agrega caracteristica 2
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout main
+Switched to branch 'main'
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+
+```
+
+Fusionamos...
+
+```bash	
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git merge feature-1 --ff
+Updating 58a49c9..264a4f9
+Fast-forward
+ version.txt | 1 +
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git merge feature-2 --no-ff
+Auto-merging version.txt
+CONFLICT (content): Merge conflict in version.txt
+Automatic merge failed; fix conflicts and then commit the result.
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ nano version.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "resolver conflictos"
+[main 6b38a35] resolver conflictos
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+
+```
+
+creamos una tercera rama:
+
+```bash
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout -b feature-3
+Switched to a new branch 'feature-3'
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ echo "Caracteristica 3 paso 1" >> version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "Caracteristica 3 paso 1" 
+[feature-3 396bb5b] Caracteristica 3 paso 1
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ echo "Caracteristica 3 paso 2" >> version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git add version.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "Caracteristica 3 paso 2" 
+[feature-3 2676264] Caracteristica 3 paso 2
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git checkout main
+Switched to branch 'main'
+
+```
+
+Haremos un merge de tipo squash:
+
+```bash
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git merge --squash feature-3
+Updating 6b38a35..2676264
+Fast-forward
+Squash commit -- not updating HEAD
+ version.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git commit -m "Agregar caracteristica 3 en un commit"
+[main 93a1124] Agregar caracteristica 3 en un commit
+ 1 file changed, 2 insertions(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline
+* 93a1124 (HEAD -> main) Agregar caracteristica 3 en un commit
+*   6b38a35 resolver conflictos
+|\  
+| * 0caa2c3 (feature-2) Se agrega caracteristica 2
+* | 264a4f9 (feature-1) Agregar caracteristica 1
+|/  
+* 58a49c9 ...
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --merges --first-parent --branches
+* 6b38a35 resolver conflictos
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --merges
+* 6b38a35 resolver conflictos
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --merges --decorate --all
+* 6b38a35 resolver conflictos
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --first-parent
+* 93a1124 (HEAD -> main) Agregar caracteristica 3 en un commit
+* 6b38a35 resolver conflictos
+* 264a4f9 (feature-1) Agregar caracteristica 1
+* 58a49c9 ...
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --merges
+* 6b38a35 resolver conflictos
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ git log --graph --oneline --decorate --all
+* 93a1124 (HEAD -> main) Agregar caracteristica 3 en un commit
+| * 2676264 (feature-3) Caracteristica 3 paso 2
+| * 396bb5b Caracteristica 3 paso 1
+|/  
+*   6b38a35 resolver conflictos
+|\  
+| * 0caa2c3 (feature-2) Se agrega caracteristica 2
+* | 264a4f9 (feature-1) Agregar caracteristica 1
+|/  
+* 58a49c9 ...
+[amirmiir@zenbook14-aacg-EndOS prueba-compare-merge]$ 
+
 ```
 

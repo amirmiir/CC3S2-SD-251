@@ -20,5 +20,12 @@ Es el dinamismo en el uso de hardware necesario para ejecutar una aplicación en
 Para el uso de elastic computing, debemos notar que en el mismo hardware se ejecutan más de una aplicación. La virtualización permite la contenerización de las aplicaciones, facilitando el proceso de ejecución, pues si ocurren bugs dentro de una aplicación, esta no afecta a otras https://www.elastic.co/blog/how-to-handle-elasticsearch-virtualization
 
 #### 3.c
-Si no hubiera 
+Hemos de notar que el elastic computing nos permite no tener todo el hardware siendo utilizado al mismo tiempo. Así, si, por ejemplo, Amazon.com, deseara diseñar su plataforma sin elastic computing, teniendo en cuenta el alto tráfico que se genera en distintas épocas del año, sería complicado el diseño tomando en cuenta zonas, fechas y minimizando el costo. Esto resultaría en o bien una aplicación extremadamente cara de mantener, o una aplicación de poca confiabilidad en su estabilidad, pues caería ante altas fluctuaciones en el tráfico.
+
+#### 4.a
+Por ejemplo, para una aplicación la cual requiera de una base de datos sencilla sin la necesidad de especificación de versión de sistema operativo o control del versionado de kernel.
+
+
+#### 5.a
+Las ventajas de implementar una nube privada son la privacidad y seguridad de sus datos, control y flexibilidad, así como la libertad para hacer cambios a nivel arquitectura, elección de hardware y software a elección.
 
