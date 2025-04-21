@@ -232,12 +232,60 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/scrum-workflow(
 
 
 ```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6(main)$ mkdir ci-cd-workflow
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6(main)$ cd ci-cd-workflow/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow/.git/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow$ echo "commit inicial en main " > main.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow$ git add main.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow$ git commit -m "Commit inicial en main"
+[main (root-commit) 4a4e165] Commit inicial en main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 main.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ git checkout -b feature
+Switched to a new branch 'feature'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ echo "Primera caracteristica" > feature1.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git add feature1.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git commit -m "Agregar primera caracteristica"
+[feature 186d964] Agregar primera caracteristica
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature1.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ echo "Segunda caracteristica" > feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git add feature2.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git commit -m "Agregar segunda caracteristica"
+[feature 0f82f67] Agregar segunda caracteristica
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ 
 
 ```
 
+Realizamos el cherry-pick
 
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git log --oneline
+0f82f67 (HEAD -> feature) Agregar segunda caracteristica
+186d964 Agregar primera caracteristica
+4a4e165 (main) Commit inicial en main
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(feature)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ git cherry-pick 186d964
+[main 0f6d896] Agregar primera caracteristica
+ Date: Mon Apr 21 11:10:45 2025 -0500
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature1.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ git cherry-pick 0f82f67
+[main 3de9a1a] Agregar segunda caracteristica
+ Date: Mon Apr 21 11:12:00 2025 -0500
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(main)$ 
 
-### Ejercicio 1
+```
+
+### 
 
 ### Ejercicio 2
 
@@ -246,3 +294,118 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/scrum-workflow(
 ### Ejercicio 4
 
 ### Ejercicio 5
+
+
+
+### Preguntas
+
+1. **Ejercicio para git checkout --ours y git checkout --theirs**
+
+   **Contexto**: En un sprint ágil, dos equipos  están trabajando en diferentes ramas. Se produce un conflicto de fusión  en un archivo de configuración crucial. El equipo A quiere mantener sus  cambios mientras el equipo B solo quiere conservar los suyos. El proceso de entrega continua está detenido debido a este conflicto.
+
+   **Pregunta**:
+    ¿Cómo utilizarías los comandos `git checkout --ours` y `git checkout --theirs` para resolver este conflicto de manera rápida y eficiente? Explica  cuándo preferirías usar cada uno de estos comandos y cómo impacta en la  pipeline de CI/CD. ¿Cómo te asegurarías de que la resolución elegida no  comprometa la calidad del código?
+
+2. **Ejercicio para git diff**
+
+   **Contexto**: Durante una revisión de código  en un entorno ágil, se observa que un pull request tiene una gran  cantidad de cambios, muchos de los cuales no están relacionados con la  funcionalidad principal. Estos cambios podrían generar conflictos con  otras ramas en la pipeline de CI/CD.
+
+   **Pregunta**:
+    Utilizando el comando `git diff`, ¿cómo compararías los  cambios entre ramas para identificar diferencias específicas en archivos críticos? Explica cómo podrías utilizar `git diff feature-branch..main` para detectar posibles conflictos antes de realizar una fusión y cómo  esto contribuye a mantener la estabilidad en un entorno ágil con CI/CD.
+
+3. **Ejercicio para git merge --no-commit --no-ff**
+
+   **Contexto**: En un proyecto ágil con CI/CD,  tu equipo quiere simular una fusión entre una rama de desarrollo y la  rama principal para ver cómo se comporta el código sin comprometerlo  inmediatamente en el repositorio. Esto es útil para identificar posibles problemas antes de completar la fusión.
+
+   **Pregunta**:
+    Describe cómo usarías el comando `git merge --no-commit --no-ff` para simular una fusión en tu rama local. ¿Qué ventajas tiene esta  práctica en un flujo de trabajo ágil con CI/CD, y cómo ayuda a minimizar errores antes de hacer commits definitivos? ¿Cómo automatizarías este  paso dentro de una pipeline CI/CD?
+
+4. **Ejercicio para git mergetool**
+
+   **Contexto**: Tu equipo de desarrollo utiliza herramientas gráficas para resolver conflictos de manera colaborativa.  Algunos desarrolladores prefieren herramientas como vimdiff o Visual  Studio Code. En medio de un sprint, varios archivos están en conflicto y los desarrolladores prefieren trabajar en un entorno visual para  resolverlos.
+
+   **Pregunta**:
+    Explica cómo configurarías y utilizarías `git mergetool` en tu equipo para integrar herramientas gráficas que faciliten la resolución de conflictos. ¿Qué impacto tiene el uso de `git mergetool` en un entorno de trabajo ágil con CI/CD, y cómo aseguras que todos los  miembros del equipo mantengan consistencia en las resoluciones?
+
+5. **Ejercicio para git reset**
+
+   **Contexto**: En un proyecto ágil, un  desarrollador ha hecho un commit que rompe la pipeline de CI/CD. Se debe revertir el commit, pero se necesita hacerlo de manera que se mantenga  el código en el directorio de trabajo sin deshacer los cambios.
+
+   **Pregunta**:
+    Explica las diferencias entre `git reset --soft`, `git reset --mixed` y `git reset --hard`. ¿En qué escenarios dentro de un flujo de trabajo ágil con CI/CD utilizarías cada uno? Describe un caso en el que usarías `git reset --mixed` para corregir un commit sin perder los cambios no commiteados y cómo afecta esto a la pipeline.
+
+6. **Ejercicio para git revert**
+
+   **Contexto**: En un entorno de CI/CD, tu  equipo ha desplegado una característica a producción, pero se ha  detectado un bug crítico. La rama principal debe revertirse para  restaurar la estabilidad, pero no puedes modificar el historial de  commits debido a las políticas del equipo.
+
+   **Pregunta**:
+    Explica cómo utilizarías `git revert` para deshacer los  cambios sin modificar el historial de commits. ¿Cómo te aseguras de que  esta acción no afecte la pipeline de CI/CD y permita una rápida  recuperación del sistema? Proporciona un ejemplo detallado de cómo  revertirías varios commits consecutivos.
+
+7. **Ejercicio para git stash**
+
+   **Contexto**: En un entorno ágil, tu equipo  está trabajando en una corrección de errores urgente mientras tienes  cambios no guardados en tu directorio de trabajo que aún no están listos para ser committeados. Sin embargo, necesitas cambiar rápidamente a una rama de hotfix para trabajar en la corrección.
+
+   **Pregunta**:
+    Explica cómo utilizarías `git stash` para guardar temporalmente tus cambios y volver a ellos después de haber terminado el hotfix. ¿Qué impacto tiene el uso de `git stash` en un flujo de trabajo ágil con CI/CD cuando trabajas en múltiples tareas? ¿Cómo podrías automatizar el proceso de *stashing* dentro de una pipeline CI/CD?
+
+8. **Ejercicio para .gitignore**
+
+   **Contexto**: Tu equipo de desarrollo ágil  está trabajando en varios entornos locales con configuraciones  diferentes (archivos de logs, configuraciones personales). Estos  archivos no deberían ser parte del control de versiones para evitar  confusiones en la pipeline de CI/CD.
+
+   **Pregunta**:
+    Diseña un archivo `.gitignore` que excluya archivos  innecesarios en un entorno ágil de desarrollo. Explica por qué es  importante mantener este archivo actualizado en un equipo colaborativo  que utiliza CI/CD y cómo afecta la calidad y limpieza del código  compartido en el repositorio.
+
+#### ### Ejercicios Adicionales
+
+##### **Ejercicio 1: Resolución de conflictos en un entorno ágil**
+
+**Contexto:**
+ Estás trabajando en un proyecto ágil donde múltiples desarrolladores  están enviando cambios a la rama principal cada día. Durante una  integración continua, se detectan conflictos de fusión entre las ramas  de dos equipos que están trabajando en dos funcionalidades críticas.  Ambos equipos han modificado el mismo archivo de configuración del  proyecto.
+
+**Pregunta:**
+
+- ¿Cómo gestionarías la resolución de este conflicto de manera  eficiente utilizando Git y manteniendo la entrega continua sin  interrupciones? ¿Qué pasos seguirías para minimizar el impacto en la  CI/CD y asegurar que el código final sea estable?
+
+##### **Ejercicio 2: Rebase vs. Merge en integraciones ágiles**
+
+
+
+**Contexto:**
+ En tu equipo de desarrollo ágil, cada sprint incluye la integración de  varias ramas de características. Algunos miembros del equipo prefieren  realizar merge para mantener el historial completo de commits, mientras  que otros prefieren rebase para mantener un historial lineal.
+
+**Pregunta:**
+
+- ¿Qué ventajas y desventajas presenta cada enfoque (merge vs. rebase) en el contexto de la metodología ágil? ¿Cómo impacta esto en la  revisión de código, CI/CD, y en la identificación rápida de errores?
+
+##### **Ejercicio 3: Git Hooks en un flujo de trabajo CI/CD ágil**
+
+
+
+**Contexto:**
+ Tu equipo está utilizando Git y una pipeline de CI/CD que incluye tests  unitarios, integración continua y despliegues automatizados. Sin  embargo, algunos desarrolladores accidentalmente comiten código que no  pasa los tests locales o no sigue las convenciones de estilo definidas  por el equipo.
+
+**Pregunta:**
+
+- Diseña un conjunto de Git Hooks que ayudaría a mitigar estos  problemas, integrando validaciones de estilo y tests automáticos antes  de permitir los commits. Explica qué tipo de validaciones implementarías y cómo se relaciona esto con la calidad del código y la entrega  continua en un entorno ágil.
+
+##### **Ejercicio 4: Estrategias de branching en metodologías ágiles**
+
+
+
+**Contexto:**
+ Tu equipo de desarrollo sigue una metodología ágil y está utilizando Git Flow para gestionar el ciclo de vida de las ramas. Sin embargo, a  medida que el equipo ha crecido, la gestión de las ramas se ha vuelto  más compleja, lo que ha provocado retrasos en la integración y  conflictos de fusión frecuentes.
+
+**Pregunta:**
+
+- Explica cómo adaptarías o modificarías la estrategia de branching  para optimizar el flujo de trabajo del equipo en un entorno ágil y con  integración continua. Considera cómo podrías integrar feature branches,  release branches y hotfix branches de manera que apoyen la entrega  continua y minimicen conflictos.
+
+##### **Ejercicio 5: Automatización de reversiones con git en CI/CD**
+
+
+
+**Contexto:**
+ Durante una integración continua en tu pipeline de CI/CD, se detecta un  bug crítico después de haber fusionado varios commits a la rama  principal. El equipo necesita revertir los cambios rápidamente para  mantener la estabilidad del sistema.
+
+**Pregunta:**
+
+- ¿Cómo diseñarías un proceso automatizado con Git y CI/CD que permita revertir cambios de manera eficiente y segura? Describe cómo podrías  integrar comandos como `git revert` o `git reset` en la pipeline y cuáles serían los pasos para garantizar que los bugs se reviertan sin afectar el desarrollo en curso.
