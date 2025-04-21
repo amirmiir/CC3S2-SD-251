@@ -287,13 +287,19 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(
 
 ### 
 
-### Ejercicio 2
+### Git Scrum y Sprints
 
-### Ejercicio 3
+#### Ejercicio 1: **Crear ramas de funcionalidades (feature branches)**
 
-### Ejercicio 4
 
-### Ejercicio 5
+
+#### Ejercicio 2: **Desarrollo del sprint (sprint execution)**
+
+#### Ejercicio 3: **Revisión del sprint (sprint review)**
+
+#### Ejercicio 4: 
+
+#### Ejercicio 5
 
 
 
@@ -355,7 +361,7 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(
    **Pregunta**:
     Diseña un archivo `.gitignore` que excluya archivos  innecesarios en un entorno ágil de desarrollo. Explica por qué es  importante mantener este archivo actualizado en un equipo colaborativo  que utiliza CI/CD y cómo afecta la calidad y limpieza del código  compartido en el repositorio.
 
-#### ### Ejercicios Adicionales
+### Ejercicios Adicionales
 
 ##### **Ejercicio 1: Resolución de conflictos en un entorno ágil**
 
