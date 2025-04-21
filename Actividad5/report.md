@@ -345,3 +345,117 @@ Squash commit -- not updating HEAD
 
 ```
 
+### Prueba Auto Merge
+
+```bash	
+[amirmiir@zenbook14-aacg-EndOS Actividad5]$ cd prueba-auto-merge/
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/ds-251/Actividad5/prueba-auto-merge/.git/
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 1" > file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "Agrega linea 1"
+[main (root-commit) d2d3b98] Agrega linea 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 2" >> file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "...linea 2"
+[main adf4a1f] ...linea 2
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git checkout -b auto-merge
+Switched to a new branch 'auto-merge'
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 3" >> file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "...linea 3"
+[auto-merge c17cb77] ...linea 3
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git checkout main
+Switched to branch 'main'
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ 
+```
+
+Merge con un cambio no conflictivo (auto-merge):
+
+```bash
+[amirmiir@zenbook14-aacg-EndOS Actividad5]$ cd prueba-auto-merge/
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/ds-251/Actividad5/prueba-auto-merge/.git/
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 1" > file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "Agrega linea 1"
+[main (root-commit) d2d3b98] Agrega linea 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 2" >> file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "...linea 2"
+[main adf4a1f] ...linea 2
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git checkout -b auto-merge
+Switched to a new branch 'auto-merge'
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ echo "Linea 3" >> file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "...linea 3"
+[auto-merge c17cb77] ...linea 3
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git checkout main
+Switched to branch 'main'
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ cat file.txt
+Linea 1
+Linea 2
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ nano file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ cat file.txt
+Linea 1 cabecera
+Linea 2
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git add file.txt
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git commit -m "agrega cabecera"
+[main dc7873e] agrega cabecera
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git merge auto-merge 
+Auto-merging file.txt
+Merge made by the 'ort' strategy.
+ file.txt | 1 +
+ 1 file changed, 1 insertion(+)
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ 
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git log --graph --oneline
+*   778ee84 (HEAD -> main) Merge branch 'auto-merge'
+|\  
+| * c17cb77 (auto-merge) ...linea 3
+* | dc7873e agrega cabecera
+|/  
+* adf4a1f ...linea 2
+* d2d3b98 Agrega linea 1
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ cat file.txt
+Linea 1 cabecera
+Linea 2
+Linea 3
+[amirmiir@zenbook14-aacg-EndOS prueba-auto-merge]$ git revert -m 1 HEAD
+[main 2c664c5] Revert "Merge branch 'auto-merge'"
+ 1 file changed, 1 deletion(-)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad5/prueba-auto-merge(main)$ git log --graph --oneline
+* 2c664c5 (HEAD -> main) Revert "Merge branch 'auto-merge'"
+*   778ee84 Merge branch 'auto-merge'
+|\  
+| * c17cb77 (auto-merge) ...linea 3
+* | dc7873e agrega cabecera
+|/  
+* adf4a1f ...linea 2
+* d2d3b98 Agrega linea 1
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad5/prueba-auto-merge(main)$ cat file.txt 
+Linea 1 cabecera
+Linea 2
+
+
+```
+
+
+
+### Colaboración
+
+
+
+
+
