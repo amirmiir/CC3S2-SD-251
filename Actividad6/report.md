@@ -472,6 +472,178 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-pro
 
 ### Ejemplo:
 
+Paso 1:
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6(main)$ mkdir proyecto-colaborativo
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6(main)$ cd proyecto-colaborativo/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo/.git/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo$ echo "Este es el contenido inicial del proyecto" > archivo_colaborativo.txt
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo$ git commit -m "Commit inicial con contenido base"
+[main (root-commit) 5a51a3b] Commit inicial con contenido base
+ 1 file changed, 1 insertion(+)
+ create mode 100644 archivo_colaborativo.txt
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git branch feature-branch
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git checkout feature-branch 
+Switched to branch 'feature-branch'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ echo "Este es un cambio en la feature-branch" >> archivo_colaborativo.txt 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git commit -m "Cambios en feature-branch"
+[feature-branch b7d7285] Cambios en feature-branch
+ 1 file changed, 1 insertion(+)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ echo "Este es un cambio en la rama main" >> archivo_colaborativo.txt 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git commit -m "Cambios en main"
+[main 158a300] Cambios en main
+ 1 file changed, 1 insertion(+)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ 
+```
+
+Paso 2:
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git merge feature-branch 
+Auto-merging archivo_colaborativo.txt
+CONFLICT (content): Merge conflict in archivo_colaborativo.txt
+Automatic merge failed; fix conflicts and then commit the result.
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git status
+On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   archivo_colaborativo.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ nano archivo_colaborativo.txt 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git checkout --theirs archivo_colaborativo.txt
+Updated 1 path from the index
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git commit -m "Conflictos resueltos"
+[main 3ad8102] Conflictos resueltos
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git merge --no-commit --no-ff feature-branch 
+Already up to date.
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git diff --cached 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git merge --abort
+fatal: There is no merge to abort (MERGE_HEAD missing).
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git config --global merge.tool code
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git mergetool
+git config option merge.tool set to unknown tool: code
+Resetting to default...
+
+This message is displayed because 'merge.tool' is not configured.
+See 'git mergetool --tool-help' or 'git help config' for more details.
+'git mergetool' will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld tortoisemerge gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare smerge emerge vimdiff nvimdiff
+No files need merging
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git config --global merge.tool Visual Studio Code
+error: no action specified
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ 
+```
+
+Se ha presentado un error al seleccionar a VS Code como herramienta predeterminada para resolver merges.
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git config --global merge.tool vscode
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git mergetool
+No files need merging
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ 
+```
+
+Revertimos el merge:
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git log --graph --oneline
+*   3ad8102 (HEAD -> main) Conflictos resueltos
+|\  
+| * b7d7285 (feature-branch) Cambios en feature-branch
+* | 158a300 Cambios en main
+|/  
+* 5a51a3b Commit inicial con contenido base
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git revert -m 1 3ad8102
+[main 92c611f] Revert "Conflictos resueltos"
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ nano archivo_colaborativo.txt 
+
+```
+
+Repetimos el proceso para verificar si se ha realizado la configuración de `git mergetool`:
+
+````bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git checkout feature-branch 
+Switched to branch 'feature-branch'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git commit
+On branch feature-branch
+nothing to commit, working tree clean
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git commit
+On branch feature-branch
+nothing to commit, working tree clean
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git status
+On branch feature-branch
+nothing to commit, working tree clean
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ nano archivo_colaborativo.txt 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git add .
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git commit -m "Segundo commit en feature-branch"
+[feature-branch ac8e7ab] Segundo commit en feature-branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(feature-branch)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git merge feature-branch 
+Auto-merging archivo_colaborativo.txt
+CONFLICT (content): Merge conflict in archivo_colaborativo.txt
+Automatic merge failed; fix conflicts and then commit the result.
+````
+
+Para replicarlo, tuvimos que realizar un pequeño cambio, ya que la rama `feature-branch` no se podía volver a realizar merge.
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git revert -m 1 eefac8a
+[main c3d2967] Revert "feat: resolved conflicts"
+ 1 file changed, 4 deletions(-)
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git reset --mixed 92c611f
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git log --graph --oneline --all --decorate
+* ac8e7ab (feature-branch) Segundo commit en feature-branch
+| * 92c611f (HEAD -> main) Revert "Conflictos resueltos"
+| *   3ad8102 Conflictos resueltos
+| |\  
+| |/  
+|/|   
+* | b7d7285 Cambios en feature-branch
+| * 158a300 Cambios en main
+|/  
+* 5a51a3b Commit inicial con contenido base
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git tag -a v1.0.0 -m "Primera version estable"
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git push origin v1.0.0
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ 
+```
+
+`git bisect`:
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git bisect start
+status: waiting for both good and bad commits
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git bisect bad
+status: waiting for good commit(s), bad commit known
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ git bisect good b7d7285
+Bisecting: 0 revisions left to test after this (roughly 1 step)
+[3ad81020e659ae8fc5a53303fdc2c30d36f4161d] Conflictos resueltos
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo((no branch, bisect started on main))$ git bisect reset
+Previous HEAD position was 3ad8102 Conflictos resueltos
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/proyecto-colaborativo(main)$ 
+
+```
+
 
 
 ### Preguntas
