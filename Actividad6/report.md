@@ -146,25 +146,36 @@ Notemos que tiene un hash diferente. 0711d67 != 9db0cd7
 
 #### 1. ¿Por qué se considera que rebase es más útil para mantener un historial de proyecto lineal en comparación con merge?
 
+Porque permite mantener un historial más limpio, ya que mueve la rama completa, incorporando los commits como nuevos al main. De esta manera se puede realizar un seguimiento más detallado de los commits realizados.
 
+![](./misc/rebase_diagram.png)
+
+Pero se debe tener cuidado al hacer rebase, pues no se debe realizar en ramas públicas, pues se produce el siguiente fenómeno en el cual nuestra rama main, a ojos de Git, ha divergido de las ramas main de los demás usuarios. Esto solo tiene como solución el realizar un merge, lo cual resulta en una duplicación del historial y termina siendo una peor alternativa.
+
+![](./misc/golden_rule_rebase.png)
 
 #### 2. ¿Qué problemas potenciales podrían surgir si haces rebase en una rama compartida con otros miembros del equipo?
 
-
+Como explique en la pregunta anterior, se puede presentar la divergencia en una misma rama resultando en la necesidad de realizar un merge para solucionar estas diferencias y, por ende, la duplicación de commits realizados, resultando en un historial aún más desordenado y complicado de seguir.
 
 #### 3. ¿En qué se diferencia cherry-pick de merge, y en qué situaciones preferirías uno sobre el otro?
 
-
+cherry-pick elige de manera individual qué commit añadir, mientras que merge fusiona dos ramas juntando cambios realizados a lo largo de varios commits.
+En caso que se siga trabajando en commits posteriores y necesite una versión más estable que se encuentra en un commit específico, realizaría ``` git cherry-pick <hash>```. Mientras que merge lo eligiría si ya se culminó el proposito de una rama por completo y no se planea continuar realizando cambios.
 
 #### 4. ¿Por qué es importante evitar hacer rebase en ramas públicas?
 
+Se basa en la Golden rule para rebase, la cual nos indica los riesgos de realizar un rebase en una rama compartida, similar a como explique en las primeras dos preguntas.
 
+![](./misc/golden_rule_rebase.png)
 
 ### Ejercicios Teóricos
 
 #### 1. Diferencias entre git merge y git rebase
 
  **Pregunta**: Explica la diferencia entre git merge y git  rebase y describe en qué escenarios sería más adecuado utilizar cada uno en un equipo de desarrollo ágil que sigue las prácticas de Scrum.
+
+
 
 #### 2. **Relación entre git rebase y DevOps**
  **Pregunta**: ¿Cómo crees que el uso de git rebase ayuda a  mejorar las prácticas de DevOps, especialmente en la implementación  continua (CI/CD)? Discute los beneficios de mantener un historial lineal en el contexto de una entrega continua de código y la automatización de pipelines.
@@ -285,21 +296,181 @@ amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/ds-251/Actividad6/ci-cd-workflow(
 
 ```
 
-### 
+
 
 ### Git Scrum y Sprints
 
-#### Ejercicio 1: **Crear ramas de funcionalidades (feature branches)**
+#### Fase 1: Planificación del sprint (sprint planning)
+
+##### Ejercicio 1: **Crear ramas de funcionalidades (feature branches)**
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6(main)$ mkdir scrum-project
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6(main)$ cd scrum-project/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git init
+Initialized empty Git repository in /home/amirmiir/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project/.git/
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project$ echo "# Proyecto Scrum" > README.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project$ git add README.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project$ git commit -m "Commit inicial en main"
+[main (root-commit) be530f5] Commit inicial en main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git checkout -b feature-user-story-1
+Switched to a new branch 'feature-user-story-1'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git checkout -b feature-user-story-2
+Switched to a new branch 'feature-user-story-2'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ 
+```
+
+**Pregunta:** ¿Por qué es importante trabajar en ramas de funcionalidades separadas durante un sprint?
+
+Porque permite la integración de distintas funcionalidades de manera pronta, independiente de si otra funcionalidad ha sido completada. También se puede verificar con mayor precisión los conflictos posibles de la adición y ser solucionados con prontitud.
 
 
 
-#### Ejercicio 2: **Desarrollo del sprint (sprint execution)**
+#### Fase 2: **Desarrollo del sprint (sprint execution)**
 
-#### Ejercicio 3: **Revisión del sprint (sprint review)**
+##### Ejercicio 2: Integración continua con git rebase
 
-#### Ejercicio 4: 
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ echo "Actualizacion en main" > updates.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git add updates.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git commit -m "Actualizar main con nuevas funcionalidades"
+[main b5e6ade] Actualizar main con nuevas funcionalidades
+ 1 file changed, 1 insertion(+)
+ create mode 100644 updates.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git checkout feature-user-story-1
+Switched to branch 'feature-user-story-1'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git rebase main
+Successfully rebased and updated refs/heads/feature-user-story-1.
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ 
 
-#### Ejercicio 5
+```
+
+**Pregunta:** ¿Qué ventajas proporciona el rebase durante el desarrollo de un sprint en términos de integración continua?
+
+Respecto a merge, permite mantener un mejor manejo de historial al realizar un aumento de los commits realizados y no una única fusión, esto facilita la integración continua para el manejo de errores que se puedan presentar en las fases de desarrollo.
+
+#### Fase 3: **Revisión del sprint (sprint review)**
+
+##### Ejercicio 3: Integración selectiva con git cherry-pick
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git checkout feature-user-story-2
+Switched to branch 'feature-user-story-2'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ echo "Funcionalidad lista" > feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git add feature2.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git commit -m "Funcionalidad lista para revisión"
+[feature-user-story-2 2dc21ac] Funcionalidad lista para revisión
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ echo "Funcionalidad en progreso" > progress.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git add progress.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git commit -m "Funcionalidad aún en progreso"
+[feature-user-story-2 c068b46] Funcionalidad aún en progreso
+ 1 file changed, 1 insertion(+)
+ create mode 100644 progress.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git cherry-pick 2dc21ac
+[main 9e10aae] Funcionalidad lista para revisión
+ Date: Tue Apr 22 16:39:06 2025 -0500
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature2.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ 
+
+```
+
+**Pregunta:** ¿Cómo ayuda `git cherry-pick` a mostrar avances de forma selectiva en un sprint review?
+
+De manera similar a como hemos realizado en la parte práctica, nos permite elegir exclusivamente aquellos commits que incluyen una adición que deseamos, a través de su hash y la rama a
+
+#### Fase 4: **Retrospectiva del sprint (sprint retrospective)**
+
+##### Ejercicio 4: Revisión de conflictos y resolución
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git checkout feature-user-story-1
+Switched to branch 'feature-user-story-1'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ echo "Cambio en la misma linea" > conflicted-file.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git add conflicted-file.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git commit -m "Cambio en feature 1"
+[feature-user-story-1 9b55059] Cambio en feature 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 conflicted-file.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git checkout feature-user-story-2
+Switched to branch 'feature-user-story-2'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ echo "Cambio diferente en la misma linea" > conflicted-file.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git add conflicted-file.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git commit -m "Cambio en feature 2"
+[feature-user-story-2 cfef71f] Cambio en feature 2
+ 1 file changed, 1 insertion(+)
+ create mode 100644 conflicted-file.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-2)$ git checkout main
+Switched to branch 'main'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git merge feature-user-story-1
+Merge made by the 'ort' strategy.
+ conflicted-file.md | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 conflicted-file.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git merge feature-user-story-2
+Auto-merging conflicted-file.md
+CONFLICT (add/add): Merge conflict in conflicted-file.md
+Automatic merge failed; fix conflicts and then commit the result.
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ nano conflicted-file.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git add conflicted-file.md 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git commit
+[main e078308] Merge branch 'feature-user-story-2'
+
+```
+
+**Pregunta**: ¿Cómo manejas los conflictos de fusión al  final de un sprint? ¿Cómo puede el equipo mejorar la comunicación para  evitar conflictos grandes?
+
+En el caso que estamos analizando, vemos como el conflicto se produce por utilizar el mismo nombre para un archivo en el directorio principal. Esto se puede solucionar adaptando prácticas de nomenclatura y de manejo de directorios. Para mejorar la comunicación, el project-manager debe encargarse de establecer las normas o los equipos deben acordar en nomenclaturas para sus archivos.
+
+#### Fase 5: Fase de desarrollo, automatización de integración continua (CI) con git rebase
+
+##### Ejercicio 5: Automatización de rebase con hooks de Git
+
+```bash
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ ls
+conflicted-file.md  feature2.md  progress.md  README.md  updates.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ ls -lsa
+total 32
+4 drwxr-xr-x 3 amirmiir amirmiir 4096 abr 22 17:00 .
+4 drwxr-xr-x 8 amirmiir amirmiir 4096 abr 22 10:36 ..
+4 -rw-r--r-- 1 amirmiir amirmiir  110 abr 22 17:00 conflicted-file.md
+4 -rw-r--r-- 1 amirmiir amirmiir   20 abr 22 16:59 feature2.md
+4 drwxr-xr-x 7 amirmiir amirmiir 4096 abr 22 17:00 .git
+4 -rw-r--r-- 1 amirmiir amirmiir   26 abr 22 17:00 progress.md
+4 -rw-r--r-- 1 amirmiir amirmiir   17 abr 22 10:36 README.md
+4 -rw-r--r-- 1 amirmiir amirmiir   22 abr 22 16:59 updates.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ nano .git/hooks/pre-push
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ chmod +x .git/hooks/pre-push
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ 
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(main)$ git checkout feature-user-story-1
+Switched to branch 'feature-user-story-1'
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ echo "Cambios importantes" > feature1.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git add feature1.md
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/Actividad6/scrum-project(feature-user-story-1)$ git commit -m "Cambios importantes en feature 1"
+[feature-user-story-1 5400215] Cambios importantes en feature 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature1.md
+
+```
+
+**Pregunta**: ¿Qué ventajas y desventajas observas al automatizar el rebase en un entorno de CI/CD?
+
+
+
+### Ejemplo:
 
 
 
