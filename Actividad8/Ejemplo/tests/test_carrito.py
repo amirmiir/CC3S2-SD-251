@@ -176,4 +176,3 @@ def test_aplicar_descuento_limites():
     with pytest.raises(ValueError):
         carrito.aplicar_descuento(-5)
 
-    
