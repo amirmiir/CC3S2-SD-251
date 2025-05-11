@@ -327,11 +327,9 @@ Cuando termines **todos los ejercicios** (del 1 al 15, o los que hayas incluido 
        Given que he comido 8
        When pregunto cuántos pepinos más puedo comer
        Then debería decirme que puedo comer 2 pepinos más ... PASSED
-
-
+       
    1 feature passed, 8 scenarios passed, 0 failed, 0 skipped
    24 steps passed, 0 failed, 0 skipped
-   ```
 
 3. **Reporte y estado final en tu pipeline**:  
    - Si estás usando GitHub Actions, GitLab CI, Jenkins o cualquier otro, verás un **job de “build/test”** con un **estado “PASSED”** o “SUCCESS”.
@@ -373,11 +371,12 @@ Escenario: Comer pepinos y esperar en minutos y segundos
   Dado que he comido 35 pepinos
   Cuando espero "1 hora y 30 minutos y 45 segundos"
   Entonces mi estómago debería gruñir
-   ```
+```
 
 #### Ejercicio 2: **Manejo de cantidades fraccionarias de pepinos**
 
 **Objetivo**  
+
 - Permitir que el sistema acepte cantidades fraccionarias de pepinos (decimales).
 
 **Instrucciones**  
