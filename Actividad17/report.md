@@ -1,3 +1,33 @@
+# Actividad17 - Reporte
+
+## Parte 1: Github Projects -  Configuración de Kanban Board
+
+![](./images/p1-10.png)
+
+![](./images/p1-13.png)
+
+
+
+## Parte 2: Creación de issue template
+
+### Crea una issue template en github
+
+![](./images/p2-2.png)
+
+
+
+![](./images/p2-7.png)
+
+
+
+## Parte 3: Creación de siete historias de usuarios
+
+### Crear nuevas historias de usuario usando github issues
+
+Se realizaron una modificacion en labels para poder marcar como user story: 
+
+````markdown
+amirmiir@zenbook14-aacg-EndOS:~/Escritorio/UNI/CC3S2-SD-251/.github/ISSUE_TEMPLATE(main)$ cat user-story.md 
 ---
 name: User Story
 about: This is the user story for the CC3S2 - Activity17 - Part 2.
@@ -36,3 +66,21 @@ Given <initial context or system state>
 When <user performs an action>
 Then <expected outcome or behavior>
 And <optional additional conditions>
+````
+
+
+
+#### Historias de la lección:
+
+##### 1. Creación de issues
+
+![](./images/p3-1.png)
+
+##### Adición de issues al Kanban board
+
+![](./images/p3-8.png)
+
+##### Ejercicio: Priorizar el product backlog
+
+###### 
+

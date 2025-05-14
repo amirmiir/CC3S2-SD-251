@@ -10,8 +10,17 @@ class Belly:
         self.pepinos_comidos = 0
         self.tiempo_esperado = 0
 
+    # Ejercicio 2: Modificar funcionamiento para aceptar flotantes
     def comer(self, pepinos):
-        print(f"He comido {pepinos} pepinos.")
+        """
+        pepinos: float or int. Must be >= 0.
+        """
+        try:
+            cantidad = float(pepinos)
+        except (TypeError, ValueError):
+            raise ValueError(f"Cantidad no válida de pepinos: {pepinos!r}")
+        if cantidad < 0:
+            raise ValueError(f"No se permiten cantidades negativas: {cantidad}")
         self.pepinos_comidos += pepinos
 
     def esperar(self, tiempo_en_horas):

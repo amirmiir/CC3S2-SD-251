@@ -505,6 +505,57 @@ jobs:
 
 ### Ejercicio 2: **Manejo de cantidades fraccionarias de pepinos**
 
+Modificamos el código de la funcion `comer()` dentro de `belly.py` 
+
+```python
+# src/belly.py
+# from src.clock import get_current_time
+
+class Belly:
+    def __init__(self):
+        self.pepinos_comidos = 0
+        self.tiempo_esperado = 0
+
+    def reset(self):
+        self.pepinos_comidos = 0
+        self.tiempo_esperado = 0
+
+    # Ejercicio 2: Modificar funcionamiento para aceptar flotantes
+    def comer(self, pepinos):
+        """
+        pepinos: float or int. Must be >= 0.
+        """
+        try:
+            cantidad = float(pepinos)
+        except (TypeError, ValueError):
+            raise ValueError(f"Cantidad no válida de pepinos: {pepinos!r}")
+        if cantidad < 0:
+            raise ValueError(f"No se permiten cantidades negativas: {cantidad}")
+        self.pepinos_comidos += pepinos
+
+    def esperar(self, tiempo_en_horas):
+        if tiempo_en_horas > 0:
+            self.tiempo_esperado += tiempo_en_horas
+
+    def esta_gruñendo(self):
+        # Verificar que ambas condiciones se cumplan correctamente:
+        # Se han esperado al menos 1.5 horas Y se han comido más de 10 pepinos
+        if self.tiempo_esperado >= 1.5 and self.pepinos_comidos > 10:
+            return True
+        return False
+```
+
+Modificamos `/features/steps/steps.py` para que ya no convierta a entero el valor que le es pasado. Ahora lo maneja como string
+
+```python
+# Ejercicio 2: Removemos ":d", pues pasamos como string.
+@given('que he comido {cukes} pepinos')
+def step_given_eaten_cukes(context, cukes):
+    context.belly.comer(cukes)
+```
+
+Añadimos una prueba Gherkin
+
 
 
 ### Ejercicio 3: **Soporte para idiomas múltiples (Español e Inglés)**
