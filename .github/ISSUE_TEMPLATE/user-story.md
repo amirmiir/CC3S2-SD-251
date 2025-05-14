@@ -8,33 +8,31 @@ assignees: ''
 ---
 
 ---
-name: Tarea técnica
-about: plantilla para descrbir nuevas funcionalidades
-title: "RX-XX Título de la tarea"
-labels: enhancement
+name: User Story
+about: Template for defining clear and structured user stories
+title: "[User Story] <Short Title>"
+labels: ["user story"]
+assignees: ""
 ---
 
-## Descripción
+## User story  
 
-Explica brevemente qué se necesita hacer en esta tarea. Si forma parte de una épica mencionalo.
+**As a** _(specific role - e.g., "developer," "admin," "customer")_  
+**I need** _(clear functionality or feature needed)_  
+**So that** _(explain the value or business reason for this feature)_
 
-## Objetivo
+---
 
-¿Qué se busca lograr con esta tarea?
+##  **Context & Assumptions**  
+- _List any known constraints, assumptions, or dependencies._
+- _Mention related user stories or issues (if applicable)._
 
-## Pasos para completarla
+---
 
-- [ ] Paso 1: Descripción del primer paso
-- [ ] Paso 2: Descripción del segundo paso
-- [ ] Paso 3: Descripción del tercer paso
-
-## Cómo probar que funciona
-
-Instrucciones claras y detalladas para verificar que la tarea está completa y funciona correctamente.
-
-- Ejecutar comando
-- Verificar la salida del comando
-
-## Notas
-
-Detalles extras que ayudan a comprender mejor la tarea.
+##  **Acceptance criteria**  
+```gherkin
+Scenario: <Short Description>
+Given <initial context or system state>
+When <user performs an action>
+Then <expected outcome or behavior>
+And <optional additional conditions>
