@@ -16,6 +16,7 @@ class Belly:
         pepinos: float or int. Must be >= 0.
         """
         try:
+            # Conversion a float
             cantidad = float(pepinos)
         except (TypeError, ValueError):
             raise ValueError(f"Cantidad no válida de pepinos: {pepinos!r}")

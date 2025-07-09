@@ -84,3 +84,44 @@ And <optional additional conditions>
 
 ###### 
 
+## Parte 4:
+
+### 3. Creación de Label
+
+![](./images/p4-label-1.png)
+
+### 4. Añadir labels a las historias
+
+Procedemos a añadir nuestra primera label a la historia indicada en el backlog
+
+![](./images/p4-4-1.png)
+
+![](./images/p4-4-2.png)
+
+## Ejercicios:
+
+### 1. Crear un Epic y vincular historias de usuario
+
+Creamos la épica para"Gestión de Contadores" y le vinculamos historias de usuarios ya existentes.
+
+![](./images/e1-1.png)
+
+Utilizamos la siguiente estructura para poder vincular las issues existentes.
+
+![](./images/e1-2.png)
+
+Procedemos a ver que si se actualiza el estado de una tarea, esta se marca de manera automática.
+
+![](./images/e1-3.png)
+
+### 2. Uso avanzado de etiquetas (labels) para priorización y estado
+
+
+
+###  3. Automatización de Kanban board con GitHub Actions
+
+### 4. Seguimiento de tiempo y esfuerzo usando GitHub Projects
+
+### 5. Refinamiento de backlog basado en comentarios de los stakeholders
+
+### 6. Análisis del flujo de trabajo usando el Kanban board
